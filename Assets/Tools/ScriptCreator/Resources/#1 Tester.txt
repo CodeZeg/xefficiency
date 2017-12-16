@@ -1,0 +1,13 @@
+/*
+ * File Name:               #FILENAME#
+ * 
+ * Description:             测试类
+ * Author:                  #AUTHORNAME#
+ * Create Date:             #DATE#
+ */
+
+[XTest("#CLASSNAME#")]
+public class #CLASSNAME# 
+{
+
+}
