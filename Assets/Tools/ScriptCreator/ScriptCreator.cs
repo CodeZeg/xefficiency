@@ -28,7 +28,7 @@ namespace UnityEditor.ScriptCreator
             }
         }                              // 默认图标
 
-        private readonly Encoding EncodingType = new UTF8Encoding(false);       // 默认编码
+        private readonly Encoding EncodingType = new UTF8Encoding(true);       // 默认编码
 
         /// <summary>
         /// 外部调用 
