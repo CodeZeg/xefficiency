@@ -12,25 +12,21 @@ using UnityEngine.Profiling;
 
 public class XProfiler 
 {
-    private static float mEmptyTime;      
     private static float mLastTime;
     private static long mLastMem;
-    
-    public static void setEmptyTime(float emptyTime)
-    {
-        mEmptyTime = emptyTime;
-    }
-
+  
     public static void begin()
     {
+        
+        System.GC.Collect();
         mLastMem = Profiler.GetMonoHeapSizeLong();
         mLastTime = Time.realtimeSinceStartup;
     }
 
-    public static string end(string tag = "method")
+    public static string end(string tag)
     {
         var nowTime = Time.realtimeSinceStartup;
         var nowMem = Profiler.GetMonoHeapSizeLong();
-        return string.Format("<color=green>{0}</color> used time <color=red>{1}</color> s and alloc mem <color=red>{2}</color> byte\n", tag, nowTime - mLastTime - mEmptyTime, nowMem - mLastMem);
+        return string.Format("<color=green>{0}</color> used time <color=red>{1}</color> s and alloc mem <color=red>{2}</color> byte\n", tag, nowTime - mLastTime, nowMem - mLastMem);
     }
 }

@@ -8,10 +8,9 @@
  */
 
 [XTest("LoopStack")]
-public class LoopStack 
+public class LoopStack : BaseTester
 {
-    int count = 1000;
-    //[XTest("inner")]
+    [XTest("inner")]
     public void tstInner()
     {
         for (int i = 0; i < count; i++)
@@ -31,7 +30,7 @@ public class LoopStack
         }
     }
 
-    //[XTest("outer")]
+    [XTest("outer")]
     public void tstOuter()
     {
         float a = 0.5f;

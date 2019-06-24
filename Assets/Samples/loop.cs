@@ -10,12 +10,11 @@
 using System.Collections.Generic;
 
 [XTest("for/foreach/while")]
-public class loop 
+public class loop : BaseTester
 {
-    private int count = 1000;
     private loop_int value_int;
     private loop_class value_class;
-    public loop()
+    public override void init()
     {
         value_int = new loop_int(count);
         value_class = new loop_class(count);

@@ -12,6 +12,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class BaseTester
+{
+    public int count;
+
+    public virtual void init()
+    {
+
+    }
+}
+
 public class Gate : MonoBehaviour
 {
     public Dropdown mDropDown;
@@ -39,22 +49,26 @@ public class Gate : MonoBehaviour
             options.Add((attrs[0] as XTestAttribute).Tag);
         }
         mTypes = tmpTypes.ToArray();
-
+  
         mDropDown.ClearOptions();
         mDropDown.AddOptions(options);
     }
 
     private void onBtnClick()
     {
+
         if (mDropDown.value >= mTypes.Length)
             return;
-        int count = int.Parse(mInputField.text);
+        var count = int.Parse(mInputField.text);
 
         mTxtContent.text = "";
         var type = mTypes[mDropDown.value];
 
-        var obj = Activator.CreateInstance(type);
-        setEmptyTime(count);
+        object obj = Activator.CreateInstance(type);
+        var tester = obj as BaseTester;
+        tester.count = count;
+        tester.init();
+
         var methods = type.GetMethods();
         foreach (var item in methods)
         {
@@ -62,30 +76,10 @@ public class Gate : MonoBehaviour
             if (attrs == null || attrs.Length == 0)
                 continue;
             var callback = (Action)Delegate.CreateDelegate(typeof(Action), obj, item);
+            var tag = (attrs[0] as XTestAttribute).Tag;
             XProfiler.begin();
-            int i = 0;
-            while(i++ < count)
-            {
-                callback();
-            }
-            mTxtContent.text += XProfiler.end((attrs[0] as XTestAttribute).Tag);
-        }
-    }
-
-    private void setEmptyTime(int count)
-    {
-        Action callback = emptyMethod;
-        var st = Time.realtimeSinceStartup;
-        int i = 0;
-        while (i++ < count)
-        {
             callback();
+            mTxtContent.text += XProfiler.end(tag);
         }
-        XProfiler.setEmptyTime(Time.realtimeSinceStartup - st);
-    }
-
-    private void emptyMethod()
-    {
-
     }
 }

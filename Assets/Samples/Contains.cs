@@ -10,13 +10,12 @@
 using System.Collections.Generic;
 
 [XTest("List/Array/HashSet Contains 方法")]
-public class Contains 
+public class Contains : BaseTester
 {
-    private int count = 1000;
     private Contains_int value_int;
     private Contains_enum value_enum;
     private Contains_class value_class;
-    public Contains()
+    public override void init()
     {
         value_int = new Contains_int(count);
         value_enum = new Contains_enum(count);

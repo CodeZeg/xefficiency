@@ -7,7 +7,7 @@
  */
 
 [XTest("#CLASSNAME#")]
-public class #CLASSNAME# 
+public class #CLASSNAME# : BaseTester
 {
 
 }
